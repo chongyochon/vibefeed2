@@ -7,7 +7,19 @@
   --text-primary: #333333;
   --text-secondary: #888888;
   --border-color: #EEEEEE;
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-border: rgba(0, 0, 0, 0.05);
   --font-family: 'Inter', sans-serif;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --surface-color: #1a1a1a;
+  --text-primary: #FFFFFF;
+  --text-secondary: #AAAAAA;
+  --border-color: #333333;
+  --header-bg: rgba(26, 26, 26, 0.85);
+  --header-border: rgba(255, 255, 255, 0.05);
 }
 
 body {

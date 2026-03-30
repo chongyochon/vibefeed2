@@ -3,6 +3,7 @@ import { getPosts, toggleLike, CATEGORIES } from '../lib/storage';
 import type { Post } from '../lib/storage';
 import PostCard from '../components/ui/PostCard';
 import Tag from '../components/ui/Tag';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 export default function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -33,7 +34,10 @@ export default function Feed() {
         zIndex: 10,
         borderBottom: '1px solid rgba(0,0,0,0.05)'
       }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0, color: 'var(--primary)', fontFamily: 'Outfit, Inter, sans-serif' }}>VibeFeed</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0, color: 'var(--primary)', fontFamily: 'Outfit, Inter, sans-serif' }}>VibeFeed</h1>
+          <ThemeToggle />
+        </div>
         
         <div style={{ 
           display: 'flex', 

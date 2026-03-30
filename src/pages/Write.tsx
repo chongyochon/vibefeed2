@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addPost, CATEGORIES } from '../lib/storage';
 import { ImagePlus, X } from 'lucide-react';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 export default function Write() {
   const navigate = useNavigate();
@@ -41,21 +42,24 @@ export default function Write() {
     <div style={{ padding: '20px', backgroundColor: 'var(--surface-color)', minHeight: '100%' }}>
       <header style={{ marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0 }}>New Post</h1>
-        <button 
-          type="button"
-          onClick={() => navigate('/')}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--text-secondary)',
-            fontSize: '16px',
-            fontWeight: 500,
-            cursor: 'pointer',
-            padding: '8px'
-          }}
-        >
-          Cancel
-        </button>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <ThemeToggle />
+          <button 
+            type="button"
+            onClick={() => navigate('/')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-secondary)',
+              fontSize: '16px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              padding: '8px'
+            }}
+          >
+            Cancel
+          </button>
+        </div>
       </header>
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

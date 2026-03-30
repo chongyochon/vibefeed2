@@ -11,8 +11,6 @@ export interface Post {
   isLikedByMe: boolean;
 }
 
-
-
 export const CATEGORIES = ['#TodayILearned', '#ProjectProgress', '#NeedAdvice', '#General'];
 
 const MOCK_POSTS: Post[] = [
@@ -44,8 +42,29 @@ const MOCK_POSTS: Post[] = [
 
 let inMemoryPosts: Post[] = [...MOCK_POSTS];
 
+const LIKES_STORAGE_KEY = 'vibefeed_likes';
+
+function getLikedStates(): Record<string, { isLikedByMe: boolean, likes: number }> {
+  try {
+    const raw = localStorage.getItem(LIKES_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 export function getPosts(): Post[] {
-  return inMemoryPosts;
+  const likedStates = getLikedStates();
+  return inMemoryPosts.map(post => {
+    if (likedStates[post.id]) {
+      return { 
+        ...post, 
+        likes: likedStates[post.id].likes, 
+        isLikedByMe: likedStates[post.id].isLikedByMe 
+      };
+    }
+    return post;
+  });
 }
 
 export function savePosts(posts: Post[]) {
@@ -53,7 +72,6 @@ export function savePosts(posts: Post[]) {
 }
 
 export function addPost(post: Omit<Post, 'id' | 'createdAt' | 'authorName' | 'authorProfilePic' | 'likes' | 'isLikedByMe'>) {
-  const posts = getPosts();
   const newPost: Post = {
     ...post,
     id: Math.random().toString(36).substring(2, 9),
@@ -63,21 +81,27 @@ export function addPost(post: Omit<Post, 'id' | 'createdAt' | 'authorName' | 'au
     likes: 0,
     isLikedByMe: false
   };
-  savePosts([newPost, ...posts]);
+  inMemoryPosts = [newPost, ...inMemoryPosts];
 }
 
 export function toggleLike(postId: string) {
-  const posts = getPosts();
-  const updated = posts.map(p => {
+  const likedStates = getLikedStates();
+
+  inMemoryPosts = inMemoryPosts.map(p => {
     if (p.id === postId) {
-      if (p.isLikedByMe) {
-        return { ...p, likes: p.likes - 1, isLikedByMe: false };
-      } else {
-        return { ...p, likes: p.likes + 1, isLikedByMe: true };
-      }
+      const currentState = likedStates[postId] || { isLikedByMe: p.isLikedByMe, likes: p.likes };
+      const newState = {
+        ...p,
+        isLikedByMe: !currentState.isLikedByMe,
+        likes: currentState.isLikedByMe ? currentState.likes - 1 : currentState.likes + 1
+      };
+      
+      likedStates[postId] = { isLikedByMe: newState.isLikedByMe, likes: newState.likes };
+      return newState;
     }
     return p;
   });
-  savePosts(updated);
-  return updated;
+
+  localStorage.setItem(LIKES_STORAGE_KEY, JSON.stringify(likedStates));
+  return getPosts();
 }

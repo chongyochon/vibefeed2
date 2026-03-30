@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getPosts, toggleLike } from '../lib/storage';
 import type { Post } from '../lib/storage';
 import PostCard from '../components/ui/PostCard';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 export default function Profile() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -25,8 +26,12 @@ export default function Profile() {
         backgroundColor: 'var(--surface-color)', 
         padding: '32px 20px', 
         textAlign: 'center',
-        borderBottom: '1px solid var(--border-color)'
+        borderBottom: '1px solid var(--border-color)',
+        position: 'relative'
       }}>
+        <div style={{ position: 'absolute', top: '16px', right: '16px' }}>
+          <ThemeToggle />
+        </div>
         <img 
           src="https://ui-avatars.com/api/?name=My+Profile&background=9C27B0&color=fff&size=100" 
           alt="My Profile" 

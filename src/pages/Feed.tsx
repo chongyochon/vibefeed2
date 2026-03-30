@@ -26,13 +26,13 @@ export default function Feed() {
     <div style={{ padding: '0 0 20px 0' }}>
       <header style={{ 
         padding: '16px 20px', 
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backgroundColor: 'var(--header-bg)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
         position: 'sticky',
         top: 0,
         zIndex: 10,
-        borderBottom: '1px solid rgba(0,0,0,0.05)'
+        borderBottom: '1px solid var(--header-border)'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0, color: 'var(--text-primary)', fontFamily: 'Outfit, Inter, sans-serif' }}>VibeFeed</h1>

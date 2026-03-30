@@ -35,7 +35,7 @@ export default function Feed() {
         borderBottom: '1px solid rgba(0,0,0,0.05)'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0, color: 'var(--primary)', fontFamily: 'Outfit, Inter, sans-serif' }}>VibeFeed</h1>
+          <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0, color: 'var(--text-primary)', fontFamily: 'Outfit, Inter, sans-serif' }}>VibeFeed</h1>
           <ThemeToggle />
         </div>
         
